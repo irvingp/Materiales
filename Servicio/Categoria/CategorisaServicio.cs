@@ -1,4 +1,5 @@
 ﻿using Materiales.Models;
+using Materiales.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,48 +8,49 @@ using System.Threading.Tasks;
 
 namespace Materiales.Servicio.Categoria
 {
-    public class CategorisaServicio : ICategoria
+    public class CategorisaServicio : BaseRepository<Models.Categoria>,  ICategoria
     {
-        private Entities.CategoriaEntidad _entity;
        
-
+        private readonly MaterialesContext _context;
+       
         public CategorisaServicio(MaterialesContext context)
         {
-
-            _entity = new Entities.CategoriaEntidad(context);
-        }
+            _context = context;
+           
+        }            
+       
 
         public List<Models.Categoria> Categorias()
         {
-          
-            return _entity.getCategorias();
-           
+            List<Models.Categoria> categorias;
+            using (var contex = new MaterialesContext())
+            {
+                categorias = contex.Categoria.Where(x => x.EstadoCategoria == true).ToList();
+            }
+            return categorias;
         }
 
-        public bool Delete(int id)
+        public void  Delete(int categoria)
         {
-            Models.Categoria cat = new Models.Categoria();
             using (var context = new MaterialesContext())
             {
-                cat = (Models.Categoria)context.Categoria.Where(x => x.IdCategoria == id).FirstOrDefault();
+                var cat = context.Categoria.Where(x => x.IdCategoria == categoria);
+                context.Entry(cat).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+                context.SaveChanges();                
             }
-            return _entity.Delete(cat);
-        }
-
-        public bool Modified(Models.Categoria categoria)
-        {
-            return _entity.Modified(categoria);
-        }
-
-        public bool save(Models.Categoria categoria)
-        {
-            return _entity.Add(categoria);
         }
 
         public Models.Categoria get(int id)
         {
+            Models.Categoria cat;
+            using (var contex = new MaterialesContext())
+            {
+                cat = contex.Categoria.Where(x => x.IdCategoria == id).FirstOrDefault();
+            }
 
-            return _entity.get(id);
+            return cat;
         }
+
+        
     }
 }

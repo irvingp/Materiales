@@ -9,7 +9,7 @@ namespace Materiales.Repository
     public class BaseRepository<T>
     {
        
-        public bool Add(T entidad)
+        public bool save(T entidad)
         {
             bool a = false; 
             using (var contex = new MaterialesContext())
@@ -38,19 +38,6 @@ namespace Materiales.Repository
 
         }
 
-        public bool Delete(T entidad)
-        {
-            bool a = false;
-            using (var contex = new MaterialesContext())
-            {
-                contex.Entry(entidad).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
-                if (contex.SaveChanges() == 2)
-                {
-                    a = true;
-                }
-            }
-            return a;
-
-        }
+        
     }
 }

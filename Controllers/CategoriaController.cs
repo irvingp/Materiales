@@ -17,12 +17,11 @@ namespace Materiales.Controllers
     public class CategoriaController : ControllerBase
     {
         private ICategoria _servicio;
-        private readonly MaterialesContext _dbContext;
+      
 
-        public CategoriaController(MaterialesContext context)
+        public CategoriaController(ICategoria ServiceCategoria)
         {
-            _dbContext = context;
-            _servicio = new CategorisaServicio(context);
+            _servicio = ServiceCategoria;
         }
         // GET: api/<CategoriaController>
         [HttpGet]

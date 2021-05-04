@@ -3,57 +3,56 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Materiales.Models;
-using Materiales.Servicio.Proveedor;
+using Materiales.Servicio.UnidadMedida;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Materiales.Controllers
 {
-
     [Route("api/[controller]")]
     [ApiController]
-    public class ProveedorController : ControllerBase
+    public class UnidadMedidaController : ControllerBase
     {
-        private IProveedor _servicio;
+        private IUnidadMedida _servicio;
 
 
-        public ProveedorController(IProveedor ServiceCategoria)
+        public UnidadMedidaController(IUnidadMedida ServicioUnidadMedida)
         {
-            _servicio = ServiceCategoria;
+            _servicio = ServicioUnidadMedida;
         }
         // GET: api/<CategoriaController>
         [HttpGet]
-        public IEnumerable<Proveedor> Get()
+        public IEnumerable<UnidadMedida> Get()
         {
             return _servicio.Proveedor();
         }
 
         // GET api/<CategoriaController>/5
         [HttpGet("{id}")]
-        public Proveedor Get(int id)
+        public UnidadMedida Get(int id)
         {
             return _servicio.get(id);
         }
 
         // POST api/<CategoriaController>
         [HttpPost]
-        public void Post([FromBody] Proveedor prov)
+        public void Post([FromBody] UnidadMedida unidadMedida)
         {
-            Proveedor Proveedor = new Proveedor();
-            Proveedor.NombreProveedor = prov.NombreProveedor;
-            Proveedor.EstadoProveedor = prov.EstadoProveedor;
-            _servicio.save(Proveedor);
+            UnidadMedida unidad = new UnidadMedida();
+            unidad.NombreUnidadMedida = unidadMedida.NombreUnidadMedida;
+            unidad.EstadoUnidadMedida = unidadMedida.EstadoUnidadMedida;
+            _servicio.save(unidad);
         }
 
         // PUT api/<CategoriaController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromForm] String NombreProveedor)
+        public void Put(int id, [FromForm] String NombreUnidadMedida)
         {
-            Proveedor proveedor = new Proveedor();
-            proveedor.IdProveedor = id;
-            proveedor.NombreProveedor = NombreProveedor;
-            _servicio.Modified(proveedor);
+            UnidadMedida unidad = new UnidadMedida();
+            unidad.IdUnidadMedida = id;
+            unidad.NombreUnidadMedida = NombreUnidadMedida;
+            _servicio.Modified(unidad);
         }
 
         // DELETE api/<CategoriaController>/5

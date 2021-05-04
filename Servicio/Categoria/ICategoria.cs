@@ -6,12 +6,12 @@ using Materiales;
 
 namespace Materiales.Servicio.Categoria
 {
-    interface ICategoria 
+    public interface ICategoria 
     {
         public List<Models.Categoria> Categorias();
         public bool save(Models.Categoria categoria);
         public bool Modified(Models.Categoria categoria);
-        public bool Delete(int categoria);
+        public void Delete(int categoria);
         public Models.Categoria get(int id);
 
     }

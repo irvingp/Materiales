@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Materiales.Models;
 
 using System.Configuration;
+using Materiales.Entities;
 
 namespace Materiales
 {
@@ -34,6 +35,10 @@ namespace Materiales
                                    opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             
             services.AddControllers();
+            services.AddTransient<Servicio.Categoria.ICategoria, Servicio.Categoria.CategorisaServicio>();
+            services.AddTransient<Servicio.Proveedor.IProveedor, Servicio.Proveedor.ProveedorService>();
+            services.AddTransient<Servicio.UnidadMedida.IUnidadMedida, Servicio.UnidadMedida.UnidadMedidaService>();
+            services.AddTransient<Servicio.Materiales.IMateriales, Servicio.Materiales.MaterialesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

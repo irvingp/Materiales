@@ -10,11 +10,11 @@ namespace Materiales.Entities
     public class CategoriaEntidad : BaseRepository<Categoria>
 
     {
-        private MaterialesContext context2;
+        private MaterialesContext context;
 
         public CategoriaEntidad(MaterialesContext context)
         {
-            this.context2 = context;
+            this.context = context;
         }
 
         public List<Categoria> getCategorias()
